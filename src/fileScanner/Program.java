@@ -12,21 +12,38 @@ public class Program {
 
 	public static void main(String[] args) {
 		
+		Scanner sc = new Scanner(System.in);
 		
-		String[] lines = new String[] {"Bom dia", "Boa tarde", "Boa Noite"};
+		System.out.println("Enter a folder path: ");
+		String strPath = sc.nextLine();
 		
-		String path = "/users/lucasmancini/out.txt";
+		File path = new File(strPath);
 		
-		try(BufferedWriter bw = new BufferedWriter(new FileWriter(path, true))){
-			for(String line : lines) {
-				bw.write(line);
-				bw.newLine();
-				
-			}
-			}
-		catch(IOException e) {
-			System.out.println("Error " +e.getMessage());
+		File[] folders = path.listFiles(File::isDirectory);
+		System.out.println("FOLDERS: ");
+		for(File folder : folders) {
+			System.out.println(folder);
 		}
+		
+		System.out.println("Enter a folder path: ");
+		String strPath2 = sc.nextLine();
+		File path2 = new File(strPath2);
+		
+		File[] files = path2.listFiles(File::isFile);
+		System.out.println("FILES: ");
+		for(File file : files) {
+			System.out.println(file);
+		}
+		
+		boolean success = new File(strPath2 + "/SubDir").mkdir();
+		System.out.println("Diretory created successfully: " +success);
+		
+		
+		sc.close();
+		
+		
+		
+		
 	}
 
 }
